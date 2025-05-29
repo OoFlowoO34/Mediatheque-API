@@ -26,33 +26,33 @@ API REST pour la gestion d’une médiathèque, développée en Node.js avec Exp
 
 ## Installation
 
-1. Cloner le dépôt :
-   ```bash 
-   git clone <url_du_depot> 
+1. Cloner le dépôt :  
+   ```bash  
+   git clone <url_du_depot>  
    cd TD-Mediatheque 
 
-2. Installer les dépendances 
+2. Installer les dépendances  
     npm install
 
-3. Créer un fichier .env à la racine et ajouter la variable suivante : 
-SERVER_PORT=1337 
-SERVER_HOSTNAME="localhost"
+4. Créer un fichier .env à la racine et ajouter la variable suivante :  
+SERVER_PORT=1337  
+SERVER_HOSTNAME="localhost"  
 
-4. (Optionnel) Lancer MongoDB dans un container Docker sur le port 27777 : 
-docker run -d --name mongo-db -p 27777:27017 mongo:6.0
+5. (Optionnel) Lancer MongoDB dans un container Docker sur le port 27777 :  
+docker run -d --name mongo-db -p 27777:27017 mongo:6.0  
 
-## Installation
+## Installation  
 npm run dev
 
-### Appels API 
+### Appels API  
 Pour faire les appels API aves des requêtes pré-construites, importer la collection "Mediatheque User API"
 (TD-Mediateque-API.json)
 
 #### users
-Méthode	URL	Description	Corps (JSON) requis 
-POST	/api/users	Créer un nouvel utilisateur	{ nom, prenom, mail, telephone, nationalite } 
-GET	/api/users	Récupérer tous les utilisateurs	- 
-GET	/api/users/:id	Récupérer un utilisateur par ID	- 
-PUT	/api/users/:id	Mettre à jour un utilisateur	{ nom, prenom, mail, telephone, nationalite } 
-DELETE	/api/users/:id	Supprimer un utilisateur	- 
+Méthode	URL	Description	Corps (JSON) requis  
+POST	/api/users	Créer un nouvel utilisateur	{ nom, prenom, mail, telephone, nationalite }  
+GET	/api/users	Récupérer tous les utilisateurs	-  
+GET	/api/users/:id	Récupérer un utilisateur par ID	-  
+PUT	/api/users/:id	Mettre à jour un utilisateur	{ nom, prenom, mail, telephone, nationalite }  
+DELETE	/api/users/:id	Supprimer un utilisateur	-  
 
