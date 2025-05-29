@@ -1,0 +1,28 @@
+{
+  "name": "td-mediatheque",
+  "version": "1.0.0",
+  "description": "API pour gestion de médiathèque",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "NODE_ENV=development nodemon src/app.ts",
+    "build": "rm -Rf dist && npx tsc && cp -r public dist/ && cp package.json dist/ && mkdir dist/uploads"
+  },
+  "author": "Alexandre, Florian, Tarik",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "mongoose": "^8.15.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.21",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
