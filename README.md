@@ -41,7 +41,10 @@ SERVER_HOSTNAME="localhost"
 5. (Optionnel) Lancer MongoDB dans un container Docker sur le port 27777 :  
 docker run -d --name mongo-db -p 27777:27017 mongo:6.0  
 
-## Installation  
+## Utiliser l'API
+
+### Démarrer l'API
+Faire cette commande à la racine:  
 npm run dev
 
 ### Appels API  
