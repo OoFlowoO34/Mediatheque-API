@@ -31,8 +31,15 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
 
       - name: Notify Discord
-        if: always()
+        if: success()
         run: |
           curl -H "Content-Type: application/json" \
-               -d '{"content": "✅ Analyse SonarCloud terminée pour le commit `${{ github.sha }}` sur `${{ github.ref }}`.\nVoir le rapport: https://sonarcloud.io/project/overview?id=OoFlowoO34_Mediatheque-API"}' \
+               -d '{"content": "✅ Analyse SonarCloud réussie pour le commit `${{ github.sha }}` sur `${{ github.ref }}`.\nVoir le rapport: https://sonarcloud.io/project/overview?id=OoFlowoO34_Mediatheque-API"}' \
+               ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Notify Discord on Failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -d '{"content": "❌ Analyse SonarCloud échouée pour le commit `${{ github.sha }}` sur `${{ github.ref }}`.\nVeuillez vérifier les logs."}' \
                ${{ secrets.DISCORD_WEBHOOK }}
