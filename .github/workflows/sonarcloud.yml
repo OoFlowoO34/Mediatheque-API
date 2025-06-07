@@ -23,8 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # On enlève les tests car pas de Jest ni tests configurés
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
@@ -33,7 +31,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
 
       - name: Notify Discord
-        if: success()   # seulement si l’analyse a réussi
+        if: always()
         run: |
           curl -H "Content-Type: application/json" \
                -d '{"content": "✅ Analyse SonarCloud terminée pour le commit `${{ github.sha }}` sur `${{ github.ref }}`.\nVoir le rapport: https://sonarcloud.io/project/overview?id=OoFlowoO34_Mediatheque-API"}' \
