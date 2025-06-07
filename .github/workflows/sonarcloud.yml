@@ -30,6 +30,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
 
+      - name: Simulate failure (for testing)
+        run: exit 1
+
       - name: Notify Discord
         if: success()
         run: |
