@@ -4,6 +4,7 @@ import { SERVER } from './config/server';
 import { DEVELOPMENT } from './config/server';
 import { setupRoutes } from './routes/routes';
 import { setupMiddlewares } from './middleware/middlewares';
+import { setupSwagger } from './swagger/config';
 
 const app = express();
 
@@ -15,6 +16,10 @@ connectDB();
 
 // Setup routes
 setupRoutes(app);
+
+// Setup swagger documentation
+app.use('/api-docs', setupSwagger());
+console.log(`Documentation API disponible sur http://${SERVER.hostname}:${SERVER.port}/api-docs`);
 
 
 app.listen(SERVER.port, SERVER.hostname, () => {
