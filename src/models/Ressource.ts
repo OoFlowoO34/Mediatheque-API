@@ -1,21 +1,17 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document } from 'mongoose';
+import { RessourceInput } from '../schemas/ressourceSchema';
 
-export interface IRessources extends Document {
-  titre: string;
-  type: string;
-  auteur: string;
-  disponible: boolean;
-}
+export interface IRessources extends Document, RessourceInput {}
 
 const RessourceSchema: Schema = new Schema(
   {
     titre: { type: String, required: true },
     type: {
       type: String,
-      enum: ["Livre", "Jeu", "Film", "Autre"],
+      enum: ['Livre', 'Jeu', 'Film', 'Autre'],
       required: true,
     },
-    auteur: { type: String, required: true, unique: true },
+    auteur: { type: String, required: true },
     disponible: { type: Boolean, default: true },
   },
   {
@@ -23,4 +19,4 @@ const RessourceSchema: Schema = new Schema(
   }
 );
 
-export default mongoose.model<IRessources>("Ressource", RessourceSchema);
+export default mongoose.model<IRessources>('Ressource', RessourceSchema);

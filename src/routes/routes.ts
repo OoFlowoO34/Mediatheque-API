@@ -1,6 +1,6 @@
 import express from "express";
 import userRoutes from "./userRoutes";
-import ressourceRoute from "./RessourceRoutes";
+import ressourceRoute from "./ressourceRoutes";
 
 export const setupRoutes = (app: express.Application) => {
   app.use("/api/users", userRoutes);

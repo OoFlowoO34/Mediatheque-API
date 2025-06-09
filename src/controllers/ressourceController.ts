@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import Ressource from "../models/Ressource";
+import { Request, Response } from 'express';
+import Ressource from '../models/Ressource';
 
 // Get All Ressources
 export const getAllRessources = async (req: Request, res: Response) => {
@@ -16,19 +16,19 @@ export const getAllRessources = async (req: Request, res: Response) => {
 // Create Ressource
 export const createRessource = async (req: Request, res: Response) => {
   try {
-    const { titre, type, auteur, disponible } = req.body;
-    const TYPES_ENUM = ["Livre", "Jeu", "Film", "Autre"];
+    const { titre, type, auteur } = req.body;
+    const TYPES_ENUM = ['Livre', 'Jeu', 'Film', 'Autre'];
 
     if (!titre || !type || !auteur) {
       res
         .status(400)
-        .json({ message: "Les champs indiqués sont obligatoires" });
+        .json({ message: 'Les champs indiqués sont obligatoires' });
     }
 
     if (!TYPES_ENUM.includes(req.body.type)) {
       return res.status(400).json({
         message: `Le type doit être l'un des suivants : ${TYPES_ENUM.join(
-          ", "
+          ', '
         )}`,
       });
     }
@@ -45,7 +45,7 @@ export const getRessourceById = async (req: Request, res: Response) => {
   try {
     const ressource = await Ressource.findById(req.params.id);
     if (!ressource)
-      return res.status(404).json({ message: "Ressource non trouvée" });
+      return res.status(404).json({ message: 'Ressource non trouvée' });
     res.status(200).json(ressource);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
@@ -55,11 +55,12 @@ export const getRessourceById = async (req: Request, res: Response) => {
 // Mettre à jour une ressource
 export const updateRessource = async (req: Request, res: Response) => {
   try {
+    console.log('TEST', req.params.id);
     const updated = await Ressource.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     if (!updated)
-      return res.status(404).json({ message: "Ressource non trouvée" });
+      return res.status(404).json({ message: 'Ressource non trouvée' });
     res.status(200).json(updated);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
@@ -71,8 +72,8 @@ export const deleteRessource = async (req: Request, res: Response) => {
   try {
     const deleted = await Ressource.findByIdAndDelete(req.params.id);
     if (!deleted)
-      return res.status(404).json({ message: "Ressource non trouvée" });
-    res.status(200).json({ message: "Ressource supprimée avec succès" });
+      return res.status(404).json({ message: 'Ressource non trouvée' });
+    res.status(200).json({ message: 'Ressource supprimée avec succès' });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
