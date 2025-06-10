@@ -17,16 +17,16 @@ export class UserService implements IUserService {
     return await User.find();
   }
 
-  async getUserById(id: string): Promise<IUser | null> {
-    return await User.findById(id);
+  async getUserById(userId: string): Promise<IUser | null> {
+    return await User.findOne({ userId });
   }
 
-  async updateUser(id: string, userData: UserUpdateInput): Promise<IUser | null> {
-    return await User.findByIdAndUpdate(id, userData, { new: true, runValidators: true });
+  async updateUser(userId: string, userData: UserUpdateInput): Promise<IUser | null> {
+    return await User.findOneAndUpdate({ userId }, userData, { new: true, runValidators: true });
   }
 
-  async deleteUser(id: string): Promise<boolean> {
-    const result = await User.findByIdAndDelete(id);
+  async deleteUser(userId: string): Promise<boolean> {
+    const result = await User.findOneAndDelete({ userId });
     return result !== null;
   }
 }
