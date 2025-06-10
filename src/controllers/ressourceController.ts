@@ -1,80 +1,91 @@
-import { Request, Response } from 'express';
-import Ressource from '../models/Ressource';
+import {
+  ressourceSchema,
+  ressourceUpdateSchema,
+} from './../schemas/ressourceSchema';
+import { RequestId, RequestIdAndBody, RequestBody } from '../types/requests';
+import { Response } from 'express';
+import { RessourceService } from '../services/ressourceService';
+import {
+  RessourceInput,
+  RessourceUpdateInput,
+} from '../schemas/ressourceSchema';
 
-// Get All Ressources
-export const getAllRessources = async (req: Request, res: Response) => {
-  try {
-    const ressources = await Ressource.find();
-    res.status(200).json(ressources);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Une erreur s'est produite", error: error });
-  }
-};
-
-// Create Ressource
-export const createRessource = async (req: Request, res: Response) => {
-  try {
-    const { titre, type, auteur } = req.body;
-    const TYPES_ENUM = ['Livre', 'Jeu', 'Film', 'Autre'];
-
-    if (!titre || !type || !auteur) {
-      res
-        .status(400)
-        .json({ message: 'Les champs indiqués sont obligatoires' });
-    }
-
-    if (!TYPES_ENUM.includes(req.body.type)) {
-      return res.status(400).json({
-        message: `Le type doit être l'un des suivants : ${TYPES_ENUM.join(
-          ', '
-        )}`,
+export const createRessourceController = (
+  ressourceService: RessourceService
+) => ({
+  getAllRessources: async (
+    _req: RequestBody<any>,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const ressources = await ressourceService.getAllRessources();
+      res.status(200).json(ressources);
+    } catch (error) {
+      res.status(500).json({
+        message: 'Erreur lors de la récupération de la ressource',
+        error,
       });
     }
+  },
 
-    const newRessource = await Ressource.create(req.body);
-    res.status(200).json(newRessource);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
-  }
-};
+  createRessource: async (
+    req: RequestBody<RessourceInput>,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const parsed = ressourceSchema.parse(req.body);
+      const result = await ressourceService.createRessource(parsed);
+      res.status(201).json(result);
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        res.status(400).json({ errors: error.flatten().fieldErrors });
+        return;
+      }
+      res.status(500).json({ error: error.message });
+    }
+  },
 
-// Obtenir une ressource par ID
-export const getRessourceById = async (req: Request, res: Response) => {
-  try {
-    const ressource = await Ressource.findById(req.params.id);
-    if (!ressource)
-      return res.status(404).json({ message: 'Ressource non trouvée' });
-    res.status(200).json(ressource);
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-};
+  getRessourceById: async (req: RequestId, res: Response): Promise<void> => {
+    try {
+      const ressource = await ressourceService.getRessourceById(req.params.id);
+      if (!ressource) {
+        res.status(404).json({ error: 'Ressource non trouvée' });
+        return;
+      }
+      res.status(200).json(ressource);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 
-// Mettre à jour une ressource
-export const updateRessource = async (req: Request, res: Response) => {
-  try {
-    console.log('TEST', req.params.id);
-    const updated = await Ressource.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (!updated)
-      return res.status(404).json({ message: 'Ressource non trouvée' });
-    res.status(200).json(updated);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
-  }
-};
+  ressourceUpdate: async (
+    req: RequestIdAndBody<RessourceUpdateInput>,
+    res: Response
+  ) => {
+    try {
+      const parsed = ressourceUpdateSchema.parse(req.body);
+      const updated = await ressourceService.updateRessource(
+        req.params.id,
+        parsed
+      );
+      if (!updated) {
+        return res.status(404).json({ error: 'Ressource non trouvée' });
+      }
+      res.status(200).json(updated);
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ errors: error.flatten().fieldErrors });
+      }
+      res.status(500).json({ error: error.message });
+    }
+  },
 
-// Supprimer une ressource
-export const deleteRessource = async (req: Request, res: Response) => {
-  try {
-    const deleted = await Ressource.findByIdAndDelete(req.params.id);
-    if (!deleted)
-      return res.status(404).json({ message: 'Ressource non trouvée' });
-    res.status(200).json({ message: 'Ressource supprimée avec succès' });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-};
+  ressourceDelete: async (_req: RequestId, res: Response): Promise<void> => {
+    const deleted = await ressourceService.deleteRessource(_req.params.id);
+    if (!deleted) {
+      res.status(404).json({ error: 'Ressource non trouvée' });
+      return;
+    }
+    res.status(204).send();
+  },
+});
