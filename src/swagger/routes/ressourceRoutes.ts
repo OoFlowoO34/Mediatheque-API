@@ -1,8 +1,12 @@
 import { z } from 'zod';
 import { registry } from '../config';
-import { ressourceSchema, ressourceUpdateSchema } from '../../schemas/ressourceSchema';
+import {
+  ressourceSchema,
+  ressourceUpdateSchema,
+} from '../../schemas/ressourceSchema';
 
 export function registerRessourceRoutes() {
+  // GET - Liste de toutes les ressources
   registry.registerPath({
     method: 'get',
     path: '/api/ressources',
@@ -20,6 +24,7 @@ export function registerRessourceRoutes() {
     },
   });
 
+  // POST - Créer une ressource
   registry.registerPath({
     method: 'post',
     path: '/api/ressources',
@@ -28,16 +33,26 @@ export function registerRessourceRoutes() {
     request: {
       body: {
         content: {
-          'application/json': { schema: ressourceSchema },
+          'application/json': {
+            schema: ressourceSchema,
+          },
         },
       },
     },
     responses: {
-      201: { description: 'Ressource créée' },
+      201: {
+        description: 'Ressource créée avec succès',
+        content: {
+          'application/json': {
+            schema: ressourceSchema,
+          },
+        },
+      },
       400: { description: 'Erreur de validation' },
     },
   });
 
+  // GET - Récupérer une ressource par ID
   registry.registerPath({
     method: 'get',
     path: '/api/ressources/{id}',
@@ -52,11 +67,19 @@ export function registerRessourceRoutes() {
       }),
     },
     responses: {
-      200: { description: 'Ressource trouvée', content: { 'application/json': { schema: ressourceSchema } } },
+      200: {
+        description: 'Ressource trouvée',
+        content: {
+          'application/json': {
+            schema: ressourceSchema,
+          },
+        },
+      },
       404: { description: 'Ressource non trouvée' },
     },
   });
 
+  // PUT - Mettre à jour une ressource
   registry.registerPath({
     method: 'put',
     path: '/api/ressources/{id}',
@@ -66,14 +89,28 @@ export function registerRessourceRoutes() {
       params: z.object({
         id: z.string().openapi({ description: 'ID de la ressource' }),
       }),
-      body: { content: { 'application/json': { schema: ressourceUpdateSchema } } },
+      body: {
+        content: {
+          'application/json': {
+            schema: ressourceUpdateSchema,
+          },
+        },
+      },
     },
     responses: {
-      200: { description: 'Ressource mise à jour', content: { 'application/json': { schema: ressourceSchema } } },
+      200: {
+        description: 'Ressource mise à jour',
+        content: {
+          'application/json': {
+            schema: ressourceSchema,
+          },
+        },
+      },
       404: { description: 'Ressource non trouvée' },
     },
   });
 
+  // DELETE - Supprimer une ressource
   registry.registerPath({
     method: 'delete',
     path: '/api/ressources/{id}',
@@ -90,3 +127,4 @@ export function registerRessourceRoutes() {
     },
   });
 }
+
