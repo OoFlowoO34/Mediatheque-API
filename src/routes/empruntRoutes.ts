@@ -1,12 +1,27 @@
 import { Router } from 'express';
+import { validateRequest } from '../middleware/validateRequest';
+import { empruntSchema, empruntUpdateSchema } from '../schemas/empruntSchema';
+import { EmpruntService } from '../services/empruntService';
 import { createEmpruntController } from '../controllers/empruntController';
+
+const empruntService = new EmpruntService();
+const empruntController = createEmpruntController(empruntService);
 
 const router = Router();
 
-router.post('/', createEmpruntController.createEmprunt);
-router.get('/', createEmpruntController.getAllEmprunts);
-router.get('/:id', createEmpruntController.getEmpruntById);
-router.put('/:id/return', createEmpruntController.returnEmprunt);
-router.delete('/:id', createEmpruntController.deleteEmprunt);
+// Route pour créer un nouvel emprunt
+router.post('/', validateRequest(empruntSchema), empruntController.createEmprunt);
+
+// Route pour récupérer tous les emprunts
+router.get('/', empruntController.getAllEmprunts);
+
+// Route pour récupérer un emprunt spécifique
+router.get('/:id', empruntController.getEmpruntById);
+
+// Route pour marquer un emprunt comme retourné
+router.put('/:id/return', validateRequest(empruntUpdateSchema), empruntController.returnEmprunt);
+
+// Route pour supprimer un emprunt
+router.delete('/:id', empruntController.deleteEmprunt);
 
 export default router;

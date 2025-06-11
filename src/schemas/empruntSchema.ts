@@ -18,7 +18,7 @@ export const empruntSchema = z.object({
       example: '15-07-2025',
       description: 'Date de retour'
     })
-});
+}).openapi('EmpruntInput');
 
-
+export const empruntUpdateSchema = empruntSchema.partial().openapi('EmpruntUpdateInput');
 export type EmpruntInput = z.infer<typeof empruntSchema>;
