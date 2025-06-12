@@ -24,7 +24,7 @@ export const ressourceSchema = z.object({
     example: true,
     description: 'Indique la disponibilité de la ressource.',
   }),
-});
+}).openapi('RessourceInput');
 
 export const ressourceUpdateSchema = ressourceSchema
   .partial()

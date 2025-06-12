@@ -15,21 +15,23 @@ export class RessourceService implements IRessourceService {
     return await Ressource.find();
   }
 
-  async getRessourceById(id: string): Promise<IRessources | null> {
-    return await Ressource.findById(id);
+  async getRessourceById(ressourceId: string): Promise<IRessources | null> {
+    return await Ressource.findOne({ ressourceId: ressourceId });
   }
 
   async updateRessource(
-    id: string,
+    ressourceId: string,
     data: RessourceUpdateInput
   ): Promise<IRessources | null> {
-    return await Ressource.findByIdAndUpdate(id, data, {
-      new: true,
-    });
+    return await Ressource.findOneAndUpdate(
+      { ressourceId: ressourceId },
+      data,
+      { new: true }
+    );
   }
 
-  async deleteRessource(id: string): Promise<boolean> {
-    const result = await Ressource.findByIdAndDelete(id);
+  async deleteRessource(ressourceId: string): Promise<boolean> {
+    const result = await Ressource.findOneAndDelete({ressourceId : ressourceId});
     return !!result;
   }
 }
