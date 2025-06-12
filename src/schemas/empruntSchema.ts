@@ -4,13 +4,12 @@ import { z } from 'zod';
 extendZodWithOpenApi(z);
 
 export const empruntSchema = z.object({
-  utilisateurId: z.string()
-    .min(1, 'L’ID de l’utilisateur est requis')
+  utilisateurId: z.string().uuid({ message: "UUID invalide" })
     .openapi({
       example: '6847de49a64a24abfcd0b9dd',
       description: 'ID de l’utilisateur'
   }),
-  ressourceId: z.string()
+  ressourceId: z.string().uuid({ message: "UUID invalide" })
     .min(1, 'L’ID de la ressource est requis')
     .openapi({
       example: '6847de75a64a24abfcd0b9e0',
