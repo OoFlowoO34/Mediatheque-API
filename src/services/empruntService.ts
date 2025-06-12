@@ -1,53 +1,54 @@
-import { EmpruntModel, EmpruntDocument } from '../models/Emprunt';
+import Emprunt, { IEmprunt } from '../models/Emprunt';
 import RessourceModel from '../models/Ressource';
 import { Types } from 'mongoose';
 import { EmpruntInput } from '../schemas/empruntSchema';
 import { IEmpruntService } from '../interfaces/IEmpruntService';
+import {formatToFrDate} from '../utils/dateUtils'; 
 
 export class EmpruntService implements IEmpruntService {
-  async createEmprunt(data: EmpruntInput): Promise<EmpruntDocument[]> {
-    const { utilisateur, ressources, dateRetour } = data;
-    const dateRetourObj = parseFrDate(dateRetour);
-    const today = new Date();
-
-    const emprunts: EmpruntDocument[] = [];
-    for (const rId of ressources) {
-      const emprunt = await EmpruntModel.create({
-        utilisateur: new Types.ObjectId(utilisateur),
-        ressources: [new Types.ObjectId(rId)],
-        dateEmprunt: today,
-        dateRetour: dateRetourObj,
-        retourne: false
-      });
-      emprunts.push(emprunt);
-      await RessourceModel.findByIdAndUpdate(rId, { disponible: false });
-    }
-    return emprunts;
+  async createEmprunt(EmpruntData: EmpruntInput): Promise<IEmprunt> {
+  // Vérification de la disponibilité de la ressource
+  const ressource = await RessourceModel.findOne({ ressourceId: EmpruntData.ressourceId });
+  if (!ressource) {
+    throw new Error('Ressource non trouvée');
+  }
+  if (!ressource.disponible) {
+    throw new Error('Ressource non disponible');
   }
 
-  async getAllEmprunts(userId?: string): Promise<EmpruntDocument[]> {
+  // Création de l'emprunt
+  const emprunt = await Emprunt.create(EmpruntData);
+
+  // Mise à jour de la ressource pour la marquer comme empruntée
+  ressource.disponible = false;
+  await ressource.save();
+  return emprunt;
+    
+  }
+
+  async getAllEmprunts(userId?: string): Promise<IEmprunt[]> {
     const filter = userId && Types.ObjectId.isValid(userId)
       ? { utilisateur: userId }
       : {};
-    return EmpruntModel.find(filter)
-      .populate('utilisateur', 'nom prenom')
-      .populate('ressources', 'titre')
+    return Emprunt.find(filter)
+      .populate('utilisateur')
+      .populate('ressources')
       .exec();
   }
 
-  async getEmpruntById(id: string): Promise<EmpruntDocument | null> {
-    return EmpruntModel.findById(id)
-      .populate('utilisateur', 'nom prenom')
-      .populate('ressources', 'titre')
+  async getEmpruntById(empruntId: string): Promise<IEmprunt | null> {
+    return Emprunt.findOne({ empruntId })
+      .populate('utilisateur')
+      .populate('ressources')
       .exec();
   }
 
-  async returnEmprunt(id: string): Promise<EmpruntDocument> {
-    const emprunt = await EmpruntModel.findById(id);
+  async returnEmprunt(empruntId: string): Promise<IEmprunt> {
+    const emprunt = await Emprunt.findOne({ empruntId });
     if (!emprunt) throw new Error('Emprunt non trouvé');
     if (emprunt.retourne) throw new Error('Emprunt déjà retourné');
 
-    const resId = emprunt.ressources[0];
+    const resId = emprunt.ressourceId;
     const ressource = await RessourceModel.findById(resId);
     if (!ressource) throw new Error('Ressource introuvable');
 
@@ -58,14 +59,8 @@ export class EmpruntService implements IEmpruntService {
     return emprunt.save();
   }
 
-  async deleteEmprunt(id: string): Promise<boolean> {
-    const { deletedCount } = await EmpruntModel.deleteOne({ _id: id });
+  async deleteEmprunt(empruntId: string): Promise<boolean> {
+    const { deletedCount } = await Emprunt.deleteOne({ empruntId: empruntId });
     return deletedCount === 1;
   }
-}
-
-// Helper pour parser la date JJ-MM-AAAA
-function parseFrDate(str: string): Date {
-  const [jj, mm, aaaa] = str.split('-');
-  return new Date(`${aaaa}-${mm}-${jj}T00:00:00.000Z`);
 }

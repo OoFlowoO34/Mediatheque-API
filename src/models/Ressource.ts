@@ -13,7 +13,6 @@ const RessourceSchema: Schema = new Schema(
       default: () => uuidv4(),
       immutable: true,
     },
-
     titre: { type: String, required: true },
     type: {
       type: String,

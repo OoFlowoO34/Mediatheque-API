@@ -1,22 +1,18 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
+import { EmpruntInput } from '../schemas/empruntSchema';
 
-export interface IEmprunt {
-  utilisateur: Types.ObjectId;
-  ressources: Types.ObjectId[];
-  dateEmprunt: Date;
-  dateRetour: Date;
-  retourne: boolean;
-}
+export interface IEmprunt extends Document, EmpruntInput {}
 
-export interface EmpruntDocument extends IEmprunt, Document {
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-const EmpruntSchema = new Schema<EmpruntDocument>(
+const EmpruntSchema = new Schema(
   {
-    utilisateur: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    ressources: [{ type: Schema.Types.ObjectId, ref: 'Ressource', required: true }],
+    ressourceId: {
+      type: String,
+      unique: true,
+      default: () => uuidv4(),
+      immutable: true,
+    },
+    utilisateurId: { type: String, ref: 'User', required: true },
     dateEmprunt: { type: Date, default: Date.now, required: true },
     dateRetour: { type: Date, required: true },
     retourne: { type: Boolean, default: false, required: true }
@@ -24,5 +20,4 @@ const EmpruntSchema = new Schema<EmpruntDocument>(
   { timestamps: true }
 );
 
-export const EmpruntModel = mongoose.model<EmpruntDocument>('Emprunt', EmpruntSchema);
-export default EmpruntModel;
+export default mongoose.model<IEmprunt>('Emprunt', EmpruntSchema);
