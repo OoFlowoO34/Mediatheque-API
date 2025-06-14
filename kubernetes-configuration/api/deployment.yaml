@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: express
-        image: td-mediatheque/express
+        image: docflodev/td-mediatheque
         ports:
         - containerPort: 3000
         env:
