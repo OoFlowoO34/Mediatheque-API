@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express
+  template:
+    metadata:
+      labels:
+        app: express
+    spec:
+      containers:
+      - name: express
+        image: td-mediatheque/express
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MONGO_URI
+          value: "mongodb://mongo:27017/td-mediatheque"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: express
+spec:
+  selector:
+    app: express
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+  type: NodePort
