@@ -27,9 +27,7 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/td-mediatheque
           tags: |
-            type=ref,event=branch
             type=sha,format=short
-            type=semver,pattern={{version}}
             type=raw,value=latest
 
       - name: Build and push Docker image
