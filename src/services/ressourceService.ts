@@ -1,12 +1,12 @@
 import { IRessourceService } from '../interfaces/IRessourceService';
 import Ressource, { IRessources } from '../models/Ressource';
 import {
-  RessourceInput,
-  RessourceUpdateInput,
+  RessourceCreateZodType,
+  RessourceUpdateZodType,
 } from '../schemas/ressourceSchema';
 
 export class RessourceService implements IRessourceService {
-  async createRessource(ressourceData: RessourceInput): Promise<IRessources> {
+  async createRessource(ressourceData: RessourceCreateZodType): Promise<IRessources> {
     const ressource = await Ressource.create(ressourceData);
     return await ressource.save();
   }
@@ -21,7 +21,7 @@ export class RessourceService implements IRessourceService {
 
   async updateRessource(
     ressourceId: string,
-    data: RessourceUpdateInput
+    data: RessourceUpdateZodType
   ): Promise<IRessources | null> {
     return await Ressource.findOneAndUpdate(
       { ressourceId: ressourceId },

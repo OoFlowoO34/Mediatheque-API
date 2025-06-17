@@ -6,8 +6,8 @@ import { RequestId, RequestIdAndBody, RequestBody } from '../types/requests';
 import { Response } from 'express';
 import { RessourceService } from '../services/ressourceService';
 import {
-  RessourceInput,
-  RessourceUpdateInput,
+  RessourceCreateZodType,
+  RessourceUpdateZodType,
 } from '../schemas/ressourceSchema';
 
 export const createRessourceController = (
@@ -29,7 +29,7 @@ export const createRessourceController = (
   },
 
   createRessource: async (
-    req: RequestBody<RessourceInput>,
+    req: RequestBody<RessourceCreateZodType>,
     res: Response
   ): Promise<void> => {
     try {
@@ -59,7 +59,7 @@ export const createRessourceController = (
   },
 
   ressourceUpdate: async (
-    req: RequestIdAndBody<RessourceUpdateInput>,
+    req: RequestIdAndBody<RessourceUpdateZodType>,
     res: Response
   ) => {
     try {

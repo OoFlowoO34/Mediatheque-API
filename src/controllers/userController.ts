@@ -1,10 +1,10 @@
 import { Response } from 'express';
-import { UserInput, UserUpdateInput } from '../schemas/userSchema';
+import { UserCreateZodType, UserUpdateZodType } from '../schemas/userSchema';
 import { RequestId, RequestIdAndBody, RequestBody } from '../types/requests';
 import { IUserService } from '../interfaces/IUserService';
 
 export const createUserController = (userService: IUserService) => ({
-    createUser: async (req: RequestBody<UserInput>, res: Response): Promise<void> => {
+    createUser: async (req: RequestBody<UserCreateZodType>, res: Response): Promise<void> => {
         try {
             const savedUser = await userService.createUser(req.body);
             res.status(201).json(savedUser);
@@ -37,7 +37,7 @@ export const createUserController = (userService: IUserService) => ({
         }
     }
     ,
-    updateUser: async (req: RequestIdAndBody<UserUpdateInput>, res: Response): Promise<void> => {
+    updateUser: async (req: RequestIdAndBody<UserUpdateZodType>, res: Response): Promise<void> => {
         try {
         const updatedUser = await userService.updateUser(req.params.id, req.body);
         if (!updatedUser) {

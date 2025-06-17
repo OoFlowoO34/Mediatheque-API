@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 extendZodWithOpenApi(z);
 
-export const userSchema = z.object({
+export const userBaseSchema = z.object({
   nom: z.string()
     .min(2, "Le nom doit contenir au moins 2 caractères")
     .openapi({ example: "Dupont", description: "Nom de l'utilisateur" }),
@@ -25,10 +25,19 @@ export const userSchema = z.object({
     .openapi({ example: "Française", description: "Nationalité de l'utilisateur" }),
 }).openapi("UserInput");
 
-// Schéma pour la mise à jour (tous les champs optionnels)
-export const userUpdateSchema = userSchema
-  .partial()
-  .openapi("UserUpdateInput");
+// For creation: no need for userId, it will be generated automatically
+export const userCreateSchema = userBaseSchema;
 
-export type UserInput = z.infer<typeof userSchema>;
-export type UserUpdateInput = z.infer<typeof userUpdateSchema>;
+// For update: all fields optional except userId (must be present to identify the user)
+export const userUpdateSchema = userBaseSchema.partial().extend({
+  userId: z.string().uuid(),
+}).openapi("UserUpdateInput");
+
+// Full user schema: includes userId (used for responses or internal usage)
+export const userSchema = userBaseSchema.extend({
+  userId: z.string().uuid(),
+});
+
+export type UserCreateZodType = z.infer<typeof userCreateSchema>;
+export type UserUpdateZodType = z.infer<typeof userUpdateSchema>;
+export type UserZodType = z.infer<typeof userSchema>;

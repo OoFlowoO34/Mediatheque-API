@@ -1,17 +1,18 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { EmpruntInput } from '../schemas/empruntSchema';
+import { EmpruntZodType } from '../schemas/empruntSchema';
 
-export interface IEmprunt extends Document, EmpruntInput {}
+export interface IEmprunt extends Document, EmpruntZodType {}
 
 const EmpruntSchema = new Schema(
   {
-    ressourceId: {
+    empruntId: {
       type: String,
       unique: true,
       default: () => uuidv4(),
-      immutable: true,
+      immutable: true
     },
+    ressourceId: { type: String, ref: 'Ressource', required: true },
     utilisateurId: { type: String, ref: 'User', required: true },
     dateEmprunt: { type: Date, default: Date.now, required: true },
     dateRetour: { type: Date, required: true },

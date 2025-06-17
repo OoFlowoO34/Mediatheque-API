@@ -1,12 +1,12 @@
 import Emprunt, { IEmprunt } from '../models/Emprunt';
 import RessourceModel from '../models/Ressource';
 import { Types } from 'mongoose';
-import { EmpruntInput } from '../schemas/empruntSchema';
+import { EmpruntCreateZodType } from '../schemas/empruntSchema';
 import { IEmpruntService } from '../interfaces/IEmpruntService';
 import {formatToFrDate} from '../utils/dateUtils'; 
 
 export class EmpruntService implements IEmpruntService {
-  async createEmprunt(EmpruntData: EmpruntInput): Promise<IEmprunt> {
+  async createEmprunt(EmpruntData: EmpruntCreateZodType): Promise<IEmprunt> {
   // Vérification de la disponibilité de la ressource
   const ressource = await RessourceModel.findOne({ ressourceId: EmpruntData.ressourceId });
   if (!ressource) {

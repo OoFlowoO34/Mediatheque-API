@@ -1,10 +1,10 @@
 import { Response } from 'express';
-import { EmpruntInput, EmpruntUpdateInput } from '../schemas/empruntSchema';
+import { EmpruntCreateZodType, EmpruntUpdateZodType } from '../schemas/empruntSchema';
 import { RequestId, RequestIdAndBody, RequestBody } from '../types/requests';
 import { IEmpruntService } from '../interfaces/IEmpruntService';
 
 export const createEmpruntController = (empruntService: IEmpruntService) => ({
-  createEmprunt: async (req: RequestBody<EmpruntInput>, res: Response): Promise<void> => {
+  createEmprunt: async (req: RequestBody<EmpruntCreateZodType>, res: Response): Promise<void> => {
     try {
       const result = await empruntService.createEmprunt(req.body);
       res.status(201).json(result);
@@ -37,7 +37,7 @@ export const createEmpruntController = (empruntService: IEmpruntService) => ({
     }
   },
 
-  returnEmprunt: async (req: RequestIdAndBody<EmpruntUpdateInput>, res: Response): Promise<void> => {
+  returnEmprunt: async (req: RequestIdAndBody<EmpruntUpdateZodType>, res: Response): Promise<void> => {
     try {
       const emprunt = await empruntService.returnEmprunt(req.params.id);
       if (!emprunt) {

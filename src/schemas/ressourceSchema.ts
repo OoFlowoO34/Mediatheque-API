@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 extendZodWithOpenApi(z);
 
-export const ressourceSchema = z.object({
+export const ressourceBaseSchema = z.object({
   titre: z.string().min(1, 'Le titre est requis').openapi({
     example: 'Les fleurs du mal',
     description: 'Le titre de la ressource.',
@@ -24,11 +24,35 @@ export const ressourceSchema = z.object({
     example: true,
     description: 'Indique la disponibilité de la ressource.',
   }),
-}).openapi('RessourceInput');
+}).openapi('RessourceBase');
 
-export const ressourceUpdateSchema = ressourceSchema
+// Schema used when creating a resource: no ressourceId needed
+export const ressourceCreateSchema = ressourceBaseSchema;
+
+// Schema used when updating a resource: ressourceId is required
+export const ressourceUpdateSchema = ressourceBaseSchema
   .partial()
-  .openapi('RessourceUpdateInput');
+  .extend({
+    ressourceId: z.string()
+      .uuid({ message: 'Invalid UUID' })
+      .openapi({
+        example: '6847de75a64a24abfcd0b9e0',
+        description: 'The ID of the resource.',
+      }),
+  })
+  .openapi('RessourceUpdate');
 
-export type RessourceInput = z.infer<typeof ressourceSchema>;
-export type RessourceUpdateInput = z.infer<typeof ressourceUpdateSchema>;
+// Full resource schema: includes all fields including ressourceId (used for output)
+export const ressourceSchema = ressourceBaseSchema.extend({
+  ressourceId: z.string()
+    .uuid({ message: 'Invalid UUID' })
+    .openapi({
+      example: '6847de75a64a24abfcd0b9e0',
+      description: 'The ID of the resource.',
+    }),
+}).openapi('Ressource');
+
+// TypeScript types
+export type RessourceCreateZodType = z.infer<typeof ressourceCreateSchema>;
+export type RessourceUpdateZodType = z.infer<typeof ressourceUpdateSchema>;
+export type RessourceZodType = z.infer<typeof ressourceSchema>;

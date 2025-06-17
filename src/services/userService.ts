@@ -1,9 +1,9 @@
 import { IUserService } from '../interfaces/IUserService';
 import User, { IUser } from '../models/User';
-import { UserInput, UserUpdateInput } from '../schemas/userSchema';
+import { UserCreateZodType, UserUpdateZodType } from '../schemas/userSchema';
 
 export class UserService implements IUserService {
-  async createUser(userData: UserInput): Promise<IUser> {
+  async createUser(userData: UserCreateZodType): Promise<IUser> {
     const existingUser = await User.findOne({ mail: userData.mail });
     if (existingUser) {
       throw new Error('Un utilisateur avec cet email existe déjà');
@@ -21,7 +21,7 @@ export class UserService implements IUserService {
     return await User.findOne({ userId });
   }
 
-  async updateUser(userId: string, userData: UserUpdateInput): Promise<IUser | null> {
+  async updateUser(userId: string, userData: UserUpdateZodType): Promise<IUser | null> {
     return await User.findOneAndUpdate({ userId }, userData, { new: true, runValidators: true });
   }
 
