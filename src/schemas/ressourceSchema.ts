@@ -24,23 +24,13 @@ export const ressourceBaseSchema = z.object({
     example: true,
     description: 'Indique la disponibilité de la ressource.',
   }),
-}).openapi('RessourceBase');
+}).strict().openapi('RessourceBase');
 
 // Schema used when creating a resource: no ressourceId needed
-export const ressourceCreateSchema = ressourceBaseSchema;
+export const ressourceCreateSchema = ressourceBaseSchema.openapi("RessourceCreate");;
 
 // Schema used when updating a resource: ressourceId is required
-export const ressourceUpdateSchema = ressourceBaseSchema
-  .partial()
-  .extend({
-    ressourceId: z.string()
-      .uuid({ message: 'Invalid UUID' })
-      .openapi({
-        example: '6847de75a64a24abfcd0b9e0',
-        description: 'The ID of the resource.',
-      }),
-  })
-  .openapi('RessourceUpdate');
+export const ressourceUpdateSchema = ressourceBaseSchema.partial().openapi('RessourceUpdate');
 
 // Full resource schema: includes all fields including ressourceId (used for output)
 export const ressourceSchema = ressourceBaseSchema.extend({

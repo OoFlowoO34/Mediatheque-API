@@ -18,7 +18,16 @@ const EmpruntSchema = new Schema(
     dateRetour: { type: Date, required: true },
     retourne: { type: Boolean, default: false, required: true }
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      transform(_, ret) {
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      }
+    }
+  }
 );
 
 export default mongoose.model<IEmprunt>('Emprunt', EmpruntSchema);

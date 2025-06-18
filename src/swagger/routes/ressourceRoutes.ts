@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { registry } from '../config';
 import {
+  ressourceCreateSchema,
   ressourceSchema,
   ressourceUpdateSchema,
 } from '../../schemas/ressourceSchema';
@@ -34,7 +35,7 @@ export function registerRessourceRoutes() {
       body: {
         content: {
           'application/json': {
-            schema: ressourceSchema,
+            schema: ressourceCreateSchema,
           },
         },
       },

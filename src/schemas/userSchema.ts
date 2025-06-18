@@ -23,20 +23,18 @@ export const userBaseSchema = z.object({
   nationalite: z.string()
     .min(2, "La nationalité doit contenir au moins 2 caractères")
     .openapi({ example: "Française", description: "Nationalité de l'utilisateur" }),
-}).openapi("UserInput");
+}).strict().openapi("UserBase");
 
 // For creation: no need for userId, it will be generated automatically
-export const userCreateSchema = userBaseSchema;
+export const userCreateSchema = userBaseSchema.openapi("UserCreate");
 
 // For update: all fields optional except userId (must be present to identify the user)
-export const userUpdateSchema = userBaseSchema.partial().extend({
-  userId: z.string().uuid(),
-}).openapi("UserUpdateInput");
+export const userUpdateSchema = userBaseSchema.partial().openapi("UserUpdate");
 
 // Full user schema: includes userId (used for responses or internal usage)
 export const userSchema = userBaseSchema.extend({
   userId: z.string().uuid(),
-});
+}).openapi('User');;
 
 export type UserCreateZodType = z.infer<typeof userCreateSchema>;
 export type UserUpdateZodType = z.infer<typeof userUpdateSchema>;

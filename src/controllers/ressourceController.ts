@@ -9,52 +9,43 @@ import {
   RessourceCreateZodType,
   RessourceUpdateZodType,
 } from '../schemas/ressourceSchema';
+import { AppError } from '../utils/appError';
+import { handleError } from '../utils/errorHandler';
 
 export const createRessourceController = (
   ressourceService: RessourceService
 ) => ({
-  getAllRessources: async (
-    _req: RequestBody<any>,
+    createRessource: async (
+    req: RequestBody<RessourceCreateZodType>,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const result = await ressourceService.createRessource(req.body);
+      res.status(201).json(result);
+    } catch (error) {
+        handleError(res, error);
+    }
+  },
+    getAllRessources: async (
+    _req: RequestBody<never>,
     res: Response
   ): Promise<void> => {
     try {
       const ressources = await ressourceService.getAllRessources();
       res.status(200).json(ressources);
     } catch (error) {
-      res.status(500).json({
-        message: 'Erreur lors de la récupération de la ressource',
-        error,
-      });
+        handleError(res, error);
     }
   },
-
-  createRessource: async (
-    req: RequestBody<RessourceCreateZodType>,
-    res: Response
-  ): Promise<void> => {
-    try {
-      const parsed = ressourceSchema.parse(req.body);
-      const result = await ressourceService.createRessource(parsed);
-      res.status(201).json(result);
-    } catch (error: any) {
-      if (error.name === 'ZodError') {
-        res.status(400).json({ errors: error.flatten().fieldErrors });
-        return;
-      }
-      res.status(500).json({ error: error.message });
-    }
-  },
-
   getRessourceById: async (req: RequestId, res: Response): Promise<void> => {
     try {
       const ressource = await ressourceService.getRessourceById(req.params.id);
       if (!ressource) {
-        res.status(404).json({ error: 'Ressource non trouvée' });
-        return;
+        throw new AppError('Resource not found', 404);
       }
       res.status(200).json(ressource);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+    } catch (error) {
+        handleError(res, error);
     }
   },
 
@@ -69,23 +60,20 @@ export const createRessourceController = (
         parsed
       );
       if (!updated) {
-        return res.status(404).json({ error: 'Ressource non trouvée' });
+        throw new AppError('Resource not found', 404);
       }
       res.status(200).json(updated);
     } catch (error: any) {
-      if (error.name === 'ZodError') {
-        return res.status(400).json({ errors: error.flatten().fieldErrors });
-      }
-      res.status(500).json({ error: error.message });
+      handleError(res, error);
     }
   },
 
   ressourceDelete: async (_req: RequestId, res: Response): Promise<void> => {
-    const deleted = await ressourceService.deleteRessource(_req.params.id);
-    if (!deleted) {
-      res.status(404).json({ error: 'Ressource non trouvée' });
-      return;
+    try {
+        await ressourceService.deleteRessource(_req.params.id);
+        res.status(200).json({ message: "Resource successfully deleted" });
+    } catch (error) {
+        handleError(res, error);
     }
-    res.status(204).send();
   },
 });

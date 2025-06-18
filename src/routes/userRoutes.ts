@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { validateRequest } from '../middleware/validateRequest';
-import { userSchema, userUpdateSchema } from '../schemas/userSchema';
+import { userCreateSchema, userUpdateSchema } from '../schemas/userSchema';
 import { UserService } from '../services/userService';
 import { createUserController } from '../controllers/userController';
 
@@ -10,7 +10,7 @@ const userController = createUserController(userService);
 const router = Router();
 
 // Route to create a new user
-router.post('/', validateRequest(userSchema), userController.createUser);
+router.post('/', validateRequest(userCreateSchema), userController.createUser);
 
 // Route to get all users
 router.get('/', userController.getAllUsers);

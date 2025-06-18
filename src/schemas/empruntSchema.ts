@@ -35,22 +35,13 @@ export const empruntBaseSchema = z.object({
       example: false,
       description: 'Indique si l’emprunt a été retourné'
   })
-}).openapi('EmpruntBase');
+}).strict().openapi('EmpruntBase');
 
-export const empruntCreateSchema = empruntBaseSchema;
+export const empruntCreateSchema = empruntBaseSchema.openapi("EmpruntCreate");
 
 // Schema used for updating a loan
 // All fields are optional except empruntId, which is required and must be a valid UUID
-export const empruntUpdateSchema = empruntBaseSchema.partial()
-  .extend({
-    empruntId: z.string()
-      .uuid({ message: "UUID invalide" })
-      .openapi({
-        example: '6847de49a64a24abfcd0b9dd',
-        description: 'ID de l’emprunt'
-      }),  
-    })
-  .openapi('EmpruntUpdate');
+export const empruntUpdateSchema = empruntBaseSchema.partial().openapi('EmpruntUpdate');
 
 // Full loan schema including the mandatory loanId field
 export const empruntSchema = empruntBaseSchema.extend({

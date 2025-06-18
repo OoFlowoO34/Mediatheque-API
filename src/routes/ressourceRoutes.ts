@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { createRessourceController } from '../controllers/ressourceController';
 import { validateRequest } from '../middleware/validateRequest';
 import {
-  ressourceSchema,
+  ressourceCreateSchema,
   ressourceUpdateSchema,
 } from '../schemas/ressourceSchema';
 
@@ -17,7 +17,7 @@ router.get('/', ressourceController.getAllRessources);
 // Créer une ressource
 router.post(
   '/',
-  validateRequest(ressourceSchema),
+  validateRequest(ressourceCreateSchema),
   ressourceController.createRessource
 );
 

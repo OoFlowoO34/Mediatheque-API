@@ -1,56 +1,73 @@
-import Emprunt, { IEmprunt } from '../models/Emprunt';
+import EmpruntModel, { IEmprunt } from '../models/Emprunt';
 import RessourceModel from '../models/Ressource';
-import { Types } from 'mongoose';
 import { EmpruntCreateZodType } from '../schemas/empruntSchema';
 import { IEmpruntService } from '../interfaces/IEmpruntService';
 import {formatToFrDate} from '../utils/dateUtils'; 
+import { AppError } from '../utils/appError';
 
 export class EmpruntService implements IEmpruntService {
   async createEmprunt(EmpruntData: EmpruntCreateZodType): Promise<IEmprunt> {
-  // Vérification de la disponibilité de la ressource
-  const ressource = await RessourceModel.findOne({ ressourceId: EmpruntData.ressourceId });
-  if (!ressource) {
-    throw new Error('Ressource non trouvée');
+    const ressource = await RessourceModel.findOne({ ressourceId: EmpruntData.ressourceId });
+    if (!ressource) {
+      throw new AppError('Resource not found', 404);
+    }
+    if (!ressource.disponible) {
+      throw new AppError('Resource not available', 400);
+    }
+
+    const emprunt = await EmpruntModel.create(EmpruntData);
+
+    ressource.disponible = false;
+    await ressource.save();
+
+    return emprunt;
   }
-  if (!ressource.disponible) {
-    throw new Error('Ressource non disponible');
+  
+  async getAllEmprunts(): Promise<IEmprunt[]> {
+  return EmpruntModel.find()
+    .populate({
+      path: 'utilisateurId',
+      model: 'User',
+      localField: 'utilisateurId',
+      foreignField: 'userId',         
+      justOne: true
+    })
+    .populate({
+      path: 'ressourceId',
+      model: 'Ressource',
+      localField: 'ressourceId',      
+      foreignField: 'ressourceId',  
+      justOne: true
+    })
+    .exec();
   }
 
-  // Création de l'emprunt
-  const emprunt = await Emprunt.create(EmpruntData);
-
-  // Mise à jour de la ressource pour la marquer comme empruntée
-  ressource.disponible = false;
-  await ressource.save();
-  return emprunt;
-    
-  }
-
-  async getAllEmprunts(userId?: string): Promise<IEmprunt[]> {
-    const filter = userId && Types.ObjectId.isValid(userId)
-      ? { utilisateur: userId }
-      : {};
-    return Emprunt.find(filter)
-      .populate('utilisateur')
-      .populate('ressources')
+  async getEmpruntById(empruntId: string): Promise<IEmprunt> {
+    const emprunt = await EmpruntModel.findOne({ empruntId })
+      .populate('utilisateurId')
+      .populate('ressourceId')
       .exec();
-  }
 
-  async getEmpruntById(empruntId: string): Promise<IEmprunt | null> {
-    return Emprunt.findOne({ empruntId })
-      .populate('utilisateur')
-      .populate('ressources')
-      .exec();
+    if (!emprunt) {
+      throw new AppError('Resource not found', 404);
+    }
+
+    return emprunt;
   }
 
   async returnEmprunt(empruntId: string): Promise<IEmprunt> {
-    const emprunt = await Emprunt.findOne({ empruntId });
-    if (!emprunt) throw new Error('Emprunt non trouvé');
-    if (emprunt.retourne) throw new Error('Emprunt déjà retourné');
+    const emprunt = await EmpruntModel.findOne({ empruntId });
+    if (!emprunt) {
+      throw new AppError('Emprunt not found', 404);
+    }
+    if (emprunt.retourne) {
+      throw new AppError('Emprunt already returned', 400);
+    }
 
-    const resId = emprunt.ressourceId;
-    const ressource = await RessourceModel.findById(resId);
-    if (!ressource) throw new Error('Ressource introuvable');
+    const ressource = await RessourceModel.findOne({ ressourceId: emprunt.ressourceId });
+    if (!ressource) {
+      throw new AppError('Resource not found', 404);
+    }
 
     ressource.disponible = true;
     await ressource.save();
@@ -60,7 +77,10 @@ export class EmpruntService implements IEmpruntService {
   }
 
   async deleteEmprunt(empruntId: string): Promise<boolean> {
-    const { deletedCount } = await Emprunt.deleteOne({ empruntId: empruntId });
-    return deletedCount === 1;
+    const deleted = await EmpruntModel.deleteOne({ empruntId });
+    if (!deleted) {
+      throw new AppError('Resource not found', 404);
+    }
+    return true;
   }
 }

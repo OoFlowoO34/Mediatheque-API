@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { validateRequest } from '../middleware/validateRequest';
-import { empruntSchema, empruntUpdateSchema } from '../schemas/empruntSchema';
+import { empruntCreateSchema, empruntUpdateSchema } from '../schemas/empruntSchema';
 import { EmpruntService } from '../services/empruntService';
 import { createEmpruntController } from '../controllers/empruntController';
 
@@ -10,7 +10,7 @@ const empruntController = createEmpruntController(empruntService);
 const router = Router();
 
 // Route pour créer un nouvel emprunt
-router.post('/', validateRequest(empruntSchema), empruntController.createEmprunt);
+router.post('/', validateRequest(empruntCreateSchema), empruntController.createEmprunt);
 
 // Route pour récupérer tous les emprunts
 router.get('/', empruntController.getAllEmprunts);
