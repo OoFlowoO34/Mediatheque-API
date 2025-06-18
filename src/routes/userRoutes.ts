@@ -3,9 +3,10 @@ import { validateRequest } from '../middleware/validateRequest';
 import { userSchema, userUpdateSchema } from '../schemas/userSchema';
 import { UserService } from '../services/userService';
 import { createUserController } from '../controllers/userController';
+import logger from '../utils/logger/loggerUtils';
 
 const userService = new UserService();
-const userController = createUserController(userService);
+const userController = createUserController(userService, logger);
 
 const router = Router();
 
@@ -19,7 +20,11 @@ router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 
 // Route to update an existing user
-router.put('/:id', validateRequest(userUpdateSchema), userController.updateUser);
+router.put(
+  '/:id',
+  validateRequest(userUpdateSchema),
+  userController.updateUser
+);
 
 // Route to delete a user
 router.delete('/:id', userController.deleteUser);

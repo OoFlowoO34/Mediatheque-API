@@ -3,14 +3,19 @@ import { validateRequest } from '../middleware/validateRequest';
 import { empruntSchema, empruntUpdateSchema } from '../schemas/empruntSchema';
 import { EmpruntService } from '../services/empruntService';
 import { createEmpruntController } from '../controllers/empruntController';
+import logger from '../utils/logger/loggerUtils';
 
 const empruntService = new EmpruntService();
-const empruntController = createEmpruntController(empruntService);
+const empruntController = createEmpruntController(empruntService, logger);
 
 const router = Router();
 
 // Route pour créer un nouvel emprunt
-router.post('/', validateRequest(empruntSchema), empruntController.createEmprunt);
+router.post(
+  '/',
+  validateRequest(empruntSchema),
+  empruntController.createEmprunt
+);
 
 // Route pour récupérer tous les emprunts
 router.get('/', empruntController.getAllEmprunts);
@@ -19,7 +24,11 @@ router.get('/', empruntController.getAllEmprunts);
 router.get('/:id', empruntController.getEmpruntById);
 
 // Route pour marquer un emprunt comme retourné
-router.put('/:id/return', validateRequest(empruntUpdateSchema), empruntController.returnEmprunt);
+router.put(
+  '/:id/return',
+  validateRequest(empruntUpdateSchema),
+  empruntController.returnEmprunt
+);
 
 // Route pour supprimer un emprunt
 router.delete('/:id', empruntController.deleteEmprunt);

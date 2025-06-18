@@ -6,9 +6,10 @@ import {
   ressourceSchema,
   ressourceUpdateSchema,
 } from '../schemas/ressourceSchema';
+import logger from '../utils/logger/loggerUtils';
 
 const ressourceService = new RessourceService();
-const ressourceController = createRessourceController(ressourceService);
+const ressourceController = createRessourceController(ressourceService, logger);
 const router = Router();
 
 // Récupérer toutes les ressources
