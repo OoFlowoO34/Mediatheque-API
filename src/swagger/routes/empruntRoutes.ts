@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { registry } from '../config';
-import { empruntSchema } from '../../schemas/empruntSchema';
+import { empruntCreateSchema, empruntSchema } from '../../schemas/empruntSchema';
 
 export function registerEmpruntRoutes() {
   registry.registerPath({
@@ -24,7 +24,7 @@ export function registerEmpruntRoutes() {
     tags: ['Emprunts'],
     summary: 'Créer un nouvel emprunt',
     request: {
-      body: { content: { 'application/json': { schema: empruntSchema } } },
+      body: { content: { 'application/json': { schema: empruntCreateSchema } } },
     },
     responses: {
       201: { description: 'Emprunt créé' },

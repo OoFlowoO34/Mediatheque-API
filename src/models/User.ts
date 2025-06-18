@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { UserInput } from '../schemas/userSchema';
+import { UserZodType } from '../schemas/userSchema';
 import { v4 as uuidv4 } from 'uuid';
 
-export interface IUser extends Document, UserInput {}
+export interface IUser extends Document, UserZodType {}
 
 // Mongoose schema for User from zod schema and additional properties
 const UserSchema: Schema = new Schema({                 
@@ -18,7 +18,14 @@ const UserSchema: Schema = new Schema({
     telephone: { type: String, required: true },
     nationalite: { type: String, required: true }
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: {
+      transform(_, ret) {
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      }
+    }
 });
 
 export default mongoose.model<IUser>('User', UserSchema);

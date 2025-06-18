@@ -3,8 +3,9 @@ import { z } from 'zod';
 
 extendZodWithOpenApi(z);
 
-export const empruntSchema = z.object({
-  utilisateurId: z.string().uuid({ message: "UUID invalide" })
+export const empruntBaseSchema = z.object({
+  utilisateurId: z.string()
+    .uuid({ message: "UUID invalide" })
     .openapi({
       example: '6847de49a64a24abfcd0b9dd',
       description: 'ID de l’utilisateur'
@@ -34,9 +35,24 @@ export const empruntSchema = z.object({
       example: false,
       description: 'Indique si l’emprunt a été retourné'
   })
-}).openapi('EmpruntInput');
+}).strict().openapi('EmpruntBase');
 
-export const empruntUpdateSchema = empruntSchema.partial().openapi('EmpruntUpdateInput');
+export const empruntCreateSchema = empruntBaseSchema.openapi("EmpruntCreate");
 
-export type EmpruntInput = z.infer<typeof empruntSchema>;
-export type EmpruntUpdateInput = z.infer<typeof empruntUpdateSchema>;
+// Schema used for updating a loan
+// All fields are optional except empruntId, which is required and must be a valid UUID
+export const empruntUpdateSchema = empruntBaseSchema.partial().openapi('EmpruntUpdate');
+
+// Full loan schema including the mandatory loanId field
+export const empruntSchema = empruntBaseSchema.extend({
+  empruntId: z.string()
+    .uuid({ message: "UUID invalide" })
+    .openapi({
+      example: '6847de49a64a24abfcd0b9dd',
+      description: 'ID de l’emprunt'
+    }),
+}).openapi('Emprunt');
+
+export type EmpruntCreateZodType = z.infer<typeof empruntCreateSchema>;
+export type EmpruntUpdateZodType = z.infer<typeof empruntUpdateSchema>;
+export type EmpruntZodType = z.infer<typeof empruntSchema>;
