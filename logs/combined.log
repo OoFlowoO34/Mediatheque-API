@@ -162,3 +162,12 @@ Error: Phone number already in use
 [2025-06-19 09:20:00] error: [userController] Error fetching users: TypeError: Cannot read properties of undefined (reading 'toLocaleDateString')
 [2025-06-19 09:20:03] error: [userController] Error fetching users: TypeError: Cannot read properties of undefined (reading 'toLocaleDateString')
 [2025-06-19 09:22:16] info: [userController] Fetched 7 users
+[2025-06-19 11:11:01] info: [empruntController] Fetched 1 emprunts
+[2025-06-19 11:11:10] info: [userController] Fetched 1 users
+[2025-06-19 11:11:12] info: [userController] Fetched 1 users
+[2025-06-19 11:11:32] warn: [userController] Attempt to delete user with ID: 683753f3-a37a-4898-9185-d8d83495d42b who has active loans
+[2025-06-19 11:13:14] info: [empruntController] Fetched 1 emprunts
+[2025-06-19 11:13:37] info: [empruntController] Emprunt with ID: 2aa55605-6c99-4b6c-947a-5cf0e558fd60 deleted successfully
+[2025-06-19 11:13:41] info: [empruntController] Emprunt with ID: 2aa55605-6c99-4b6c-947a-5cf0e558fd60 deleted successfully
+[2025-06-19 11:13:52] info: [empruntController] Fetched 0 emprunts
+[2025-06-19 11:13:58] info: [userController] User with ID: 683753f3-a37a-4898-9185-d8d83495d42b deleted successfully

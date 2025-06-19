@@ -49,6 +49,13 @@ export const createUserController = (userService: IUserService, logger: LogHelpe
     },
     deleteUser: async (req: RequestId, res: Response): Promise<void> => {
         try {
+            // Vérifier si l'utilisateur a un emprunt en cours
+            const hasActiveLoan = await userService.hasActiveLoan(req.params.id);
+            if (hasActiveLoan) {
+                logger.warn(`Attempt to delete user with ID: ${req.params.id} who has active loans`);
+                res.status(400).json({ message: "Impossible de supprimer un utilisateur ayant un emprunt en cours." });
+                return;
+            }
             await userService.deleteUser(req.params.id);
             res.status(200).json({ message: "User successfully deleted" });
             logger.info(`User with ID: ${req.params.id} deleted successfully`);
@@ -57,5 +64,4 @@ export const createUserController = (userService: IUserService, logger: LogHelpe
             handleError(res, error);
         }
     }
-
 });

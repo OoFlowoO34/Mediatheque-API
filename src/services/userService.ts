@@ -3,6 +3,7 @@ import { AppError } from '../utils/appError';
 import { UserCreateZodType, UserUpdateZodType } from '../schemas/userSchema';
 import { IUserService } from '../interfaces/IUserService';
 import type { LogHelper } from '../utils/logger/loggerHelper';
+import Emprunt from '../models/Emprunt';
 
 export const createUserService = (logger: LogHelper): IUserService => {
   return {
@@ -71,6 +72,10 @@ export const createUserService = (logger: LogHelper): IUserService => {
         throw new AppError("User not found", 404);
       }
       return true;
+    },
+    async hasActiveLoan(userId: string): Promise<boolean> {
+      const emprunt = await Emprunt.findOne({ utilisateurId: userId });
+      return !!emprunt;
     }
   };
 };
