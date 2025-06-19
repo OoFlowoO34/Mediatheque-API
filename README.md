@@ -47,9 +47,20 @@ npm install
 
 Créer un fichier `.env` :
 ```
+# Application run mode (development | production)
+NODE_ENV=development
+
+# Server listening address (localhost used in development)
+SERVER_HOSTNAME=localhost
+
+# Server listening port
 SERVER_PORT=3000
-DEVELOPMENT_SERVER_HOSTNAME=0.0.0.0
-PRODUCTION_SERVER_HOSTNAME="localhost""
+
+# MongoDB connection URI
+MONGO_URI=mongodb://localhost:27777/td-mediatheque
+
+# Log level (e.g., error, warn, info, verbose, debug, silly)
+LOG_LEVEL=info
 ```
 
 Lancer MongoDB (Docker) :
@@ -63,7 +74,7 @@ Démarrer le projet en local
 npm run dev
 ```
 
-🔍 Swagger Docs : [http://localhost:1337/api-docs](http://localhost:1337/api-docs)
+🔍 Swagger Docs : [http://localhost:3000/api-docs/](http://localhost:3000/api-docs/)
 
 ---
 
