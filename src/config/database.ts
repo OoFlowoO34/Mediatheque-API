@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { DEVELOPMENT } from './server';
 
 const connectDB = async () => {
   try {

@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { registry } from '../config';
 import {
   ressourceCreateSchema,
   ressourceSchema,
   ressourceUpdateSchema,
 } from '../../schemas/ressourceSchema';
+import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 
-export function registerRessourceRoutes() {
+export function registerRessourceRoutes(registry: OpenAPIRegistry) {
   // GET - Liste de toutes les ressources
   registry.registerPath({
     method: 'get',

@@ -1,7 +1,6 @@
 import express from 'express';
 import connectDB from './config/database';
-import { SERVER } from './config/server';
-import { DEVELOPMENT } from './config/server';
+import { SERVER, DEVELOPMENT } from './config/server';
 import { setupRoutes } from './routes/routes';
 import { setupMiddlewares } from './middleware/middlewares';
 import { setupSwagger } from './swagger/config';

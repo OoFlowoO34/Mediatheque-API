@@ -2,7 +2,6 @@ import EmpruntModel, { IEmprunt } from '../models/Emprunt';
 import RessourceModel from '../models/Ressource';
 import { EmpruntCreateZodType } from '../schemas/empruntSchema';
 import { IEmpruntService } from '../interfaces/IEmpruntService';
-import {formatToFrDate} from '../utils/dateUtils'; 
 import { AppError } from '../utils/appError';
 import type { LogHelper } from '../utils/logger/loggerHelper';
 

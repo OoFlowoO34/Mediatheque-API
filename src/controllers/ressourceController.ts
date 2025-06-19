@@ -1,5 +1,4 @@
 import {
-  ressourceSchema,
   ressourceUpdateSchema,
 } from './../schemas/ressourceSchema';
 import { RequestId, RequestIdAndBody, RequestBody } from '../types/requests';
@@ -9,7 +8,6 @@ import {
   RessourceCreateZodType,
   RessourceUpdateZodType,
 } from '../schemas/ressourceSchema';
-import { AppError } from '../utils/appError';
 import { handleError } from '../utils/errorHandler';
 import type { LogHelper }  from '../utils/logger/loggerHelper';
 
@@ -45,10 +43,6 @@ export const createRessourceController = (
   getRessourceById: async (req: RequestId, res: Response): Promise<void> => {
     try {
       const ressource = await ressourceService.getRessourceById(req.params.id);
-      if (!ressource) {
-        logger.error(`Resource not found for ID: ${req.params.id}`);
-        throw new AppError('Resource not found', 404);
-      }
       res.status(200).json(ressource);
       logger.info(`Fetched resource with ID: ${req.params.id}`);
     } catch (error) {
@@ -67,10 +61,6 @@ export const createRessourceController = (
         req.params.id,
         parsed
       );
-      if (!updated) {
-        logger.error(`Resource not found for ID: ${req.params.id}`);
-        throw new AppError('Resource not found', 404);
-      }
       res.status(200).json(updated);
       logger.info(`Resource with ID: ${req.params.id} updated successfully`);
     } catch (error: any) {
