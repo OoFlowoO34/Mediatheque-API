@@ -29,17 +29,23 @@ jobs:
           projectBaseDir: .
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-
-      - name: Notify Discord
-        if: success()
+    
+  discord-notification:
+    runs-on: ubuntu-latest
+    needs: sonarqube
+    if: always()
+    steps:
+      - name: Notify Discord (success)
+        if: needs.sonarqube.result == 'success'
         run: |
           curl -H "Content-Type: application/json" \
-               -d '{"content": "✅ Analyse SonarCloud réussie pour le commit `${{ github.sha }}` sur `${{ github.ref }}`.\nVoir le rapport: https://sonarcloud.io/project/overview?id=OoFlowoO34_Mediatheque-API"}' \
-               ${{ secrets.DISCORD_WEBHOOK }}
+            -d "{\"content\": \"✅ Analyse SonarCloud **réussie** pour le commit \`${{ github.sha }}\` sur \`${{ github.ref }}\`.\nVoir le rapport : https://sonarcloud.io/project/overview?id=OoFlowoO34_Mediatheque-API\"}" \
+            ${{ secrets.DISCORD_WEBHOOK }}
 
-      - name: Notify Discord on Failure
-        if: failure()
+      - name: Notify Discord (failure)
+        if: needs.sonarqube.result == 'failure'
         run: |
           curl -H "Content-Type: application/json" \
-               -d '{"content": "❌ Analyse SonarCloud échouée pour le commit `${{ github.sha }}` sur `${{ github.ref }}`.\nVeuillez vérifier les logs."}' \
-               ${{ secrets.DISCORD_WEBHOOK }}
+            -d "{\"content\": \"❌ Analyse SonarCloud **échouée** pour le commit \`${{ github.sha }}\` sur \`${{ github.ref }}\`.\nVérifie les logs dans GitHub Actions.\"}" \
+            ${{ secrets.DISCORD_WEBHOOK }}
+

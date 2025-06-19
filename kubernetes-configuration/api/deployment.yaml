@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express
+  namespace: api        # <=== Ajouté ici
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express
+  template:
+    metadata:
+      labels:
+        app: express
+    spec:
+      containers:
+      - name: express
+        image: docflodev/td-mediatheque
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:                        
+            name: express-config
