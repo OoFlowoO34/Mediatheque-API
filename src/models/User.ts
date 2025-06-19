@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { UserZodType } from '../schemas/userSchema';
 import { v4 as uuidv4 } from 'uuid';
+import { formatToFrDate } from '../utils/dateUtils';
 
 export interface IUser extends Document, UserZodType {}
 
@@ -21,6 +22,11 @@ const UserSchema: Schema = new Schema({
     timestamps: true,
     toJSON: {
       transform(_, ret) {
+        // Date formatting
+        ret.createdAt = formatToFrDate(ret.createdAt);
+        ret.updatedAt = formatToFrDate(ret.updatedAt);
+
+        // Remove unnecessary fields for security purposes
         delete ret._id;
         delete ret.__v;
         return ret;
