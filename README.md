@@ -83,26 +83,26 @@ Télécharger kubectl : https://kubernetes.io/docs/tasks/tools/install-kubectl-w
 
 ### Démarrage:
 
-#### 🚀 Démarre le cluster Minikube
+🚀 Démarre le cluster Minikube
 ```bash
 minikube start
 ```
 
-#### 🌐 Crée un tunnel pour accéder aux services LoadBalancer (ex : accès local à l’API)
+🌐 Crée un tunnel pour accéder aux services LoadBalancer (ex : accès local à l’API)
 ```bash
 minikube tunnel
 ```
 
-#### 🖥️ Lance l’interface graphique (dashboard) de Kubernetes dans le navigateur
+🖥️ Lance l’interface graphique (dashboard) de Kubernetes dans le navigateur
 ```bash
 minikube dashboard
 ```
 
-#### 📦 Déploie les ressources de la base de données
+📦 Déploie les ressources de la base de données
 ```bash
 kubectl apply -f kubernetes-configuration/database/
 ```
-#### 📦 Déploie les ressources de l’API
+📦 Déploie les ressources de l’API
 ```bash
 kubectl apply -f kubernetes-configuration/api/
 ```
@@ -135,7 +135,7 @@ kubectl dashboard
 
 **Accès local à l’API** : http://mediatheque.local/api
 
-#### 🚀 Arrêter le cluster Minikube
+🛑 Arrêter le cluster Minikube
 ```bash
 minikube stop
 ```
