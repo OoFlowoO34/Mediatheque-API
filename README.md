@@ -135,6 +135,12 @@ kubectl dashboard
 
 **Accès local à l’API** : http://mediatheque.local/api
 
+#### 🚀 Arrêter le cluster Minikube
+```bash
+minikube stop
+```
+Attention cela rendra l'api hors service, ne faire que sur déploiement local ou test
+
 Pour déploiement personnalisé utiliser l'image latest de l'api :
 https://hub.docker.com/repository/docker/docflodev/td-mediatheque/tags
 
