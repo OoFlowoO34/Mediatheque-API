@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { registry } from '../config';
 import { userSchema, userUpdateSchema } from '../../schemas/userSchema';
+import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 
-export function registerUserRoutes() {
+export function registerUserRoutes(registry: OpenAPIRegistry) {
   // POST /users - Créer un utilisateur
   registry.registerPath({
     method: 'post',

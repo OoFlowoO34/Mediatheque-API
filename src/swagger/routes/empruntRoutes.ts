@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { registry } from '../config';
 import { empruntCreateSchema, empruntSchema } from '../../schemas/empruntSchema';
+import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 
-export function registerEmpruntRoutes() {
+export function registerEmpruntRoutes(registry: OpenAPIRegistry) {
   registry.registerPath({
     method: 'get',
     path: '/api/emprunts',

@@ -5,6 +5,4 @@ metadata:
   namespace: api
 data:
   NODE_ENV: production
-  # MONGO_URI: mongodb://mongo:27017/td-mediatheque
-  # MONGO_URI: mongo-service.database.svc.cluster.local:27017/td-mediatheque
   MONGO_URI: "mongodb://mongo-service.database.svc.cluster.local:27017/td-mediatheque"

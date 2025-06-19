@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: express
-  namespace: api        # <=== Ajouté ici
+  namespace: api
 spec:
   replicas: 1
   selector:
@@ -21,3 +21,8 @@ spec:
         envFrom:
         - configMapRef:                        
             name: express-config
+        resources:
+          limits:
+            memory: "256Mi"
+          requests:
+            memory: "128Mi"

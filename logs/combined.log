@@ -162,3 +162,9 @@ Error: Phone number already in use
 [2025-06-19 09:20:00] error: [userController] Error fetching users: TypeError: Cannot read properties of undefined (reading 'toLocaleDateString')
 [2025-06-19 09:20:03] error: [userController] Error fetching users: TypeError: Cannot read properties of undefined (reading 'toLocaleDateString')
 [2025-06-19 09:22:16] info: [userController] Fetched 7 users
+[2025-06-19 15:54:21] info: [userController] Fetched 7 users
+[2025-06-19 15:54:35] info: [userController] Fetched user with ID: 841b92f9-54b6-4a4f-8fe6-6dfecef393a9
+[2025-06-19 15:55:01] info: [userController] Fetched user with ID: 841b92f9-54b6-4a4f-8fe6-6dfecef393a9
+[2025-06-19 22:37:50] info: [ressourceController] Fetched 6 resources
+[2025-06-19 22:44:16] info: [userController] Fetched 7 users
+[2025-06-19 23:06:20] info: [userController] Fetched 7 users

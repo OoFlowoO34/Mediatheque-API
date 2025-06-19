@@ -8,7 +8,7 @@ const logFormat = printf(({ timestamp, level, message, stack }) => {
     });
     
 const logger = createLogger({
-    level: process.env.LOG_LEVEL ?? 'info',
+  level: process.env.LOG_LEVEL ?? 'info',
     
   // Default format applied to all transports unless overridden
   format: combine(

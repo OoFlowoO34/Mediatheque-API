@@ -2,7 +2,6 @@ import { Response } from 'express';
 import { UserCreateZodType, UserUpdateZodType } from '../schemas/userSchema';
 import { RequestId, RequestIdAndBody, RequestBody } from '../types/requests';
 import { IUserService } from '../interfaces/IUserService';
-import { AppError } from '../utils/appError';
 import { handleError } from '../utils/errorHandler';
 import type { LogHelper }  from '../utils/logger/loggerHelper';
 
