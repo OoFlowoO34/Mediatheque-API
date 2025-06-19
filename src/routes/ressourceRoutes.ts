@@ -1,14 +1,13 @@
-import { RessourceService } from './../services/ressourceService';
 import { Router } from 'express';
 import { createRessourceController } from '../controllers/ressourceController';
 import { validateRequest } from '../middleware/validateRequest';
-import {
-  ressourceCreateSchema,
-  ressourceUpdateSchema,
-} from '../schemas/ressourceSchema';
+import { ressourceCreateSchema, ressourceUpdateSchema } from '../schemas/ressourceSchema';
+import { CreateRessourceService } from '../services/ressourceService';
+import logger from '../utils/logger/loggerHelper';
 
-const ressourceService = new RessourceService();
-const ressourceController = createRessourceController(ressourceService);
+const ressourceService = CreateRessourceService(logger("ressourceService"));
+const ressourceController = createRessourceController(ressourceService, logger("ressourceController"));
+
 const router = Router();
 
 // Récupérer toutes les ressources

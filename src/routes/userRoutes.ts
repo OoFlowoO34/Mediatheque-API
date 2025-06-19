@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { validateRequest } from '../middleware/validateRequest';
 import { userCreateSchema, userUpdateSchema } from '../schemas/userSchema';
-import { UserService } from '../services/userService';
+import { createUserService } from '../services/userService';
 import { createUserController } from '../controllers/userController';
+import logger from '../utils/logger/loggerHelper';
 
-const userService = new UserService();
-const userController = createUserController(userService);
+const userService = createUserService(logger('userService'));
+const userController = createUserController(userService, logger('userController'));
 
 const router = Router();
 

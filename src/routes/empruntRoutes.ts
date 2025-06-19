@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { validateRequest } from '../middleware/validateRequest';
 import { empruntCreateSchema, empruntUpdateSchema } from '../schemas/empruntSchema';
-import { EmpruntService } from '../services/empruntService';
+import { createEmpruntService } from '../services/empruntService';
 import { createEmpruntController } from '../controllers/empruntController';
+import logger from '../utils/logger/loggerHelper';
 
-const empruntService = new EmpruntService();
-const empruntController = createEmpruntController(empruntService);
+const empruntService = createEmpruntService(logger("empruntService"));
+const empruntController = createEmpruntController(empruntService, logger("empruntController"));
 
 const router = Router();
 

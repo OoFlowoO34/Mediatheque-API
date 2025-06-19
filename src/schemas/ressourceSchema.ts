@@ -10,7 +10,7 @@ export const ressourceBaseSchema = z.object({
   }),
   type: z
     .enum(['Livre', 'Jeu', 'Film', 'Autre'], {
-      errorMap: () => ({ message: 'Type invalide' }),
+      errorMap: () => ({ message: 'Type invalide, must be Livre, Jeu, Film or Autre' }),
     })
     .openapi({
       example: 'Livre',
