@@ -1,0 +1,117 @@
+[2025-06-18 22:24:46] ERROR: Found 4 emprunts
+[2025-06-19 01:08:52] ERROR: [empruntController] Error creating emprunt: MongoServerError: E11000 duplicate key error collection: td-mediatheque.emprunts index: ressourceId_1 dup key: { ressourceId: "b8018cc9-fd69-46e6-9b41-93069d8b654a" }
+[2025-06-19 01:09:20] ERROR: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:09:20] ERROR: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:09:35] ERROR: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:09:35] ERROR: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:19:31] ERROR: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:19:31] ERROR: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:19:31] ERROR: [errorHandler] AppError: Resource not available
+[2025-06-19 01:20:21] ERROR: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:20:21] ERROR: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:20:21] ERROR: [errorHandler] AppError: Resource not available
+[2025-06-19 01:22:45] ERROR: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:22:45] ERROR: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:22:45] ERROR: [errorHandler] AppError: Resource not available
+[2025-06-19 01:22:56] ERROR: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:22:56] ERROR: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:22:56] ERROR: [errorHandler] AppError: Resource not available
+[2025-06-19 01:26:12] ERROR: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:26:12] ERROR: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:26:12] ERROR: [errorHandler] AppError: Resource not available
+[2025-06-19 01:28:12] ERROR: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:28:12] ERROR: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:33:38] error: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:33:38] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:33:38] error: [errorHandler] AppError: Resource not available
+[2025-06-19 01:33:45] error: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:33:45] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:33:45] error: [errorHandler] AppError: Resource not available
+[2025-06-19 01:33:46] error: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:33:46] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:33:46] error: [errorHandler] AppError: Resource not available
+[2025-06-19 01:39:09] error: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:39:09] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:39:09] error: [errorHandler] AppError: Resource not available
+[2025-06-19 01:39:13] error: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:39:13] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:39:13] error: [errorHandler] AppError: Resource not available
+[2025-06-19 01:41:48] error: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:41:48] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:41:48] error: Resource not available
+AppError: Resource not available
+    at /Users/florian/Desktop/TD-Mediatheque/src/services/empruntService.ts:20:15
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/empruntService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 01:51:21] error: [empruntService] Resource not available for ressourceId: 14428adb-7a59-4185-93e7-9bb2b068868e
+[2025-06-19 01:51:21] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:51:21] error: Resource not available
+AppError: Resource not available
+    at /Users/florian/Desktop/TD-Mediatheque/src/services/empruntService.ts:20:15
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/empruntService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 01:54:14] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:54:14] error: Resource not available
+AppError: Resource not available
+    at /Users/florian/Desktop/TD-Mediatheque/src/services/empruntService.ts:18:15
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/empruntService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 01:58:21] error: [empruntController] Error creating emprunt: AppError: Resource not available
+[2025-06-19 01:58:21] error: Resource not available
+AppError: Resource not available
+    at /Users/florian/Desktop/TD-Mediatheque/src/services/empruntService.ts:18:15
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/empruntService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 02:02:46] error: [userController] Error creating user: AppError: Email already in use
+[2025-06-19 02:02:46] error: Email already in use
+AppError: Email already in use
+    at Object.<anonymous> (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:14:17)
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 02:02:55] error: [userController] Error creating user: AppError: Phone number already in use
+[2025-06-19 02:02:55] error: Phone number already in use
+AppError: Phone number already in use
+    at Object.<anonymous> (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:21:17)
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 02:03:53] error: [userController] Error creating user: AppError: Phone number already in use
+[2025-06-19 02:03:53] error: Phone number already in use
+AppError: Phone number already in use
+    at Object.<anonymous> (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:21:17)
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 02:05:27] error: [userController] Error creating user: Error: Phone number already in use
+[2025-06-19 02:05:27] error: Phone number already in use
+Error: Phone number already in use
+    at Object.<anonymous> (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:21:17)
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 02:05:32] error: [userController] Error creating user: Error: Phone number already in use
+[2025-06-19 02:05:32] error: Phone number already in use
+Error: Phone number already in use
+    at Object.<anonymous> (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:21:17)
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 02:06:17] error: [userController] Error creating user: Error: Phone number already in use
+[2025-06-19 02:06:17] error: Phone number already in use
+Error: Phone number already in use
+    at Object.<anonymous> (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:21:17)
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/florian/Desktop/TD-Mediatheque/src/services/userService.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-06-19 02:08:32] error: [userController] Error creating user: AppError: Phone number already in use
+[2025-06-19 02:09:33] error: [userController] Error fetching user by ID 507f1f77bcf86cd799439011: AppError: User not found
+[2025-06-19 02:11:26] error: [userController] Error fetching user by ID 507f1f77bcf86cd799439011: AppError: User not found
+[2025-06-19 02:12:41] error: [userService] Email already in use: jean.dupont@example.com
+[2025-06-19 02:12:41] error: [userController] Error creating user: AppError: Email already in use
+[2025-06-19 02:18:21] error: [empruntService] Emprunt with ID a289827a-3ce5-47c7-b953-c7c36d399e13 not found
+[2025-06-19 02:18:21] error: [empruntController] Error returning emprunt with ID a289827a-3ce5-47c7-b953-c7c36d399e13: AppError: Emprunt not found
