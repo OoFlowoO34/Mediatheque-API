@@ -117,3 +117,6 @@ Error: Phone number already in use
 [2025-06-19 02:18:21] error: [empruntController] Error returning emprunt with ID a289827a-3ce5-47c7-b953-c7c36d399e13: AppError: Emprunt not found
 [2025-06-19 09:20:00] error: [userController] Error fetching users: TypeError: Cannot read properties of undefined (reading 'toLocaleDateString')
 [2025-06-19 09:20:03] error: [userController] Error fetching users: TypeError: Cannot read properties of undefined (reading 'toLocaleDateString')
+[2025-06-20 10:50:38] error: [userController] Error deleting user with ID 3fa85f64-5717-4562-b3fc-2c963f66afa6: AppError: User not found
+[2025-06-20 11:01:05] error: [userController] Error deleting user with ID 1de2e141-91bc-4d36-b490-df211405052f: AppError: Cannot delete user with active loan
+[2025-06-20 11:07:55] error: [userController] Error deleting user with ID 1de2e141-91bc-4d36-b490-df211405052f: AppError: Cannot delete user with active loan
