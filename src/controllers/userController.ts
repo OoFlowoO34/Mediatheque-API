@@ -56,5 +56,4 @@ export const createUserController = (userService: IUserService, logger: LogHelpe
             handleError(res, error);
         }
     }
-
 });

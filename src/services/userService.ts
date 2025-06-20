@@ -3,6 +3,7 @@ import { AppError } from '../utils/appError';
 import { UserCreateZodType, UserUpdateZodType } from '../schemas/userSchema';
 import { IUserService } from '../interfaces/IUserService';
 import type { LogHelper } from '../utils/logger/loggerHelper';
+import Emprunt from '../models/Emprunt';
 
 export const createUserService = (logger: LogHelper): IUserService => {
   return {
@@ -66,9 +67,14 @@ export const createUserService = (logger: LogHelper): IUserService => {
     },
 
     async deleteUser(userId: string): Promise<boolean> {
+      // Check if the user has a loan in progress
+      const hasActiveLoan = await Emprunt.findOne({ utilisateurId: userId });
+      if (hasActiveLoan) {
+      throw new AppError("Cannot delete user with active loan", 400);
+      }
       const deleted = await UserModel.findOneAndDelete({ userId });
       if (!deleted) {
-        throw new AppError("User not found", 404);
+      throw new AppError("User not found", 404);
       }
       return true;
     }

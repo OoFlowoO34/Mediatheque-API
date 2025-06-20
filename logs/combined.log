@@ -168,3 +168,47 @@ Error: Phone number already in use
 [2025-06-19 22:37:50] info: [ressourceController] Fetched 6 resources
 [2025-06-19 22:44:16] info: [userController] Fetched 7 users
 [2025-06-19 23:06:20] info: [userController] Fetched 7 users
+[2025-06-20 10:43:46] info: [userController] Fetched 0 users
+[2025-06-20 10:48:39] info: [userController] User created successfully with ID: 6f07748b-463a-451c-9625-796f5f2dd524
+[2025-06-20 10:48:46] info: [userController] Fetched 1 users
+[2025-06-20 10:48:56] info: [ressourceController] Fetched 1 resources
+[2025-06-20 10:49:10] info: [ressourceController] Resource created successfully with ID: 90555fc8-860b-4bff-b558-4a8f24933f8f
+[2025-06-20 10:49:17] info: [ressourceController] Fetched 2 resources
+[2025-06-20 10:49:26] info: [empruntController] Fetched 0 emprunts
+[2025-06-20 10:49:56] info: [userController] Fetched 1 users
+[2025-06-20 10:50:10] info: [empruntController] Emprunt created successfully with ID: c6bd2a6d-a11d-46a2-9ed3-1e3406b9daa2
+[2025-06-20 10:50:20] info: [empruntController] Fetched 1 emprunts
+[2025-06-20 10:50:38] error: [userController] Error deleting user with ID 3fa85f64-5717-4562-b3fc-2c963f66afa6: AppError: User not found
+[2025-06-20 10:50:58] info: [userController] User with ID: 6f07748b-463a-451c-9625-796f5f2dd524 deleted successfully
+[2025-06-20 10:51:09] info: [userController] Fetched 0 users
+[2025-06-20 10:51:21] info: [empruntController] Fetched 1 emprunts
+[2025-06-20 10:51:43] info: [empruntController] Emprunt with ID: c6bd2a6d-a11d-46a2-9ed3-1e3406b9daa2 deleted successfully
+[2025-06-20 10:51:49] info: [empruntController] Fetched 0 emprunts
+[2025-06-20 10:52:03] info: [ressourceController] Resource with ID: 3c4a54d8-587b-4a25-aa69-d119dcecc881 deleted successfully
+[2025-06-20 10:52:16] info: [ressourceController] Resource with ID: 90555fc8-860b-4bff-b558-4a8f24933f8f deleted successfully
+[2025-06-20 10:52:25] info: [ressourceController] Fetched 0 resources
+[2025-06-20 10:52:31] info: [userController] Fetched 0 users
+[2025-06-20 10:52:42] info: [userController] User created successfully with ID: 72725424-688a-47c1-a795-a068089e015e
+[2025-06-20 10:52:45] info: [userController] Fetched 1 users
+[2025-06-20 10:53:03] info: [ressourceController] Resource created successfully with ID: 94a9dd10-2f57-42d0-8a30-d7fce2218220
+[2025-06-20 10:53:11] info: [empruntController] Fetched 0 emprunts
+[2025-06-20 10:53:31] info: [userController] Fetched 1 users
+[2025-06-20 10:53:46] info: [empruntController] Emprunt created successfully with ID: fb990e7e-6c7f-47af-8906-04d05c9ffd67
+[2025-06-20 10:53:54] info: [empruntController] Fetched 1 emprunts
+[2025-06-20 10:54:09] info: [userController] Fetched 1 users
+[2025-06-20 10:54:49] info: [userController] User with ID: 72725424-688a-47c1-a795-a068089e015e deleted successfully
+[2025-06-20 10:54:52] info: [userController] Fetched 0 users
+[2025-06-20 10:59:34] info: [userController] Fetched 0 users
+[2025-06-20 10:59:40] info: [userController] User created successfully with ID: 1de2e141-91bc-4d36-b490-df211405052f
+[2025-06-20 10:59:42] info: [userController] Fetched 1 users
+[2025-06-20 10:59:58] info: [ressourceController] Resource created successfully with ID: 221dd0ad-bbf1-4388-8274-d02430904daf
+[2025-06-20 11:00:01] info: [ressourceController] Fetched 2 resources
+[2025-06-20 11:00:11] info: [empruntController] Fetched 1 emprunts
+[2025-06-20 11:00:40] info: [empruntController] Emprunt created successfully with ID: 8857566c-2f53-462e-ae27-fafd6935cf31
+[2025-06-20 11:00:46] info: [empruntController] Fetched 2 emprunts
+[2025-06-20 11:00:59] info: [userController] Fetched 1 users
+[2025-06-20 11:01:05] error: [userController] Error deleting user with ID 1de2e141-91bc-4d36-b490-df211405052f: AppError: Cannot delete user with active loan
+[2025-06-20 11:07:13] info: [userController] Fetched 1 users
+[2025-06-20 11:07:25] info: [userController] Fetched 1 users
+[2025-06-20 11:07:35] info: [empruntController] Fetched 2 emprunts
+[2025-06-20 11:07:55] error: [userController] Error deleting user with ID 1de2e141-91bc-4d36-b490-df211405052f: AppError: Cannot delete user with active loan
